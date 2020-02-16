@@ -24,7 +24,39 @@
           user, and adding that card to the DOM.
 */
 
+axios.get('https://api.github.com/users/yirano').then((response) => {
+	console.log(response);
+	comp(response.data);
+});
+
 const followersArray = [];
+
+function comp(obj) {
+	const cont = document.querySelector('.cards');
+	const parentDiv = document.createElement('div');
+	const img = document.createElement('img');
+	const childDiv = document.createElement('div');
+	const h3 = document.createElement('h3');
+	const userName = document.createElement('p');
+	const location = document.createElement('p');
+	const profile = document.createElement('p');
+	const profAddr = document.createElement('a');
+	const followers = document.createElement('p');
+	const following = document.createElement('p');
+	const bio = document.createElement('p');
+
+	parentDiv.classList.add('card');
+	childDiv.classList.add('card-info');
+	h3.classList.add('name');
+	userName.classList.add('username');
+
+	cont.appendChild(parentDiv);
+	parentDiv.append(img, childDiv);
+	childDiv.append(h3, userName, location, profile, followers, following, bio);
+	profile.appendChild(profAddr);
+
+	h3.textContent = obj.name;
+}
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
