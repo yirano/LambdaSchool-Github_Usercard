@@ -31,18 +31,27 @@ justsml
 luishrd
 bigknell
 */
+// const followersArray = [ 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell' ];
+const followerArr = [];
 
-axios.get('https://api.github.com/users/yirano').then((response) => {
-	console.log(response);
-	comp(response.data);
-});
-
-const followersArray = [ 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell' ];
-followersArray.map((user) => {
-	axios.get(`https://api.github.com/users/${user}`).then((response) => {
+axios
+	.get('https://api.github.com/users/yirano')
+	.then((response) => {
+		// console.log(response.data.followers_url);
 		comp(response.data);
+		return axios.get('https://api.github.com/users/yirano/followers');
+	})
+	.then((response) => {
+		response.data.map((user) => {
+			comp(user);
+		});
 	});
-});
+
+// followersArray.map((user) => {
+// 	axios.get(`https://api.github.com/users/${user}`).then((response) => {
+// 		comp(response.data);
+// 	});
+// });
 
 function comp(obj) {
 	const cont = document.querySelector('.cards');
