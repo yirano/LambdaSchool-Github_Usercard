@@ -24,12 +24,25 @@
           user, and adding that card to the DOM.
 */
 
+/* List of LS Instructors Github username's:
+tetondan
+dustinmyers
+justsml
+luishrd
+bigknell
+*/
+
 axios.get('https://api.github.com/users/yirano').then((response) => {
 	console.log(response);
 	comp(response.data);
 });
 
-const followersArray = [];
+const followersArray = [ 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell' ];
+followersArray.map((user) => {
+	axios.get(`https://api.github.com/users/${user}`).then((response) => {
+		comp(response.data);
+	});
+});
 
 function comp(obj) {
 	const cont = document.querySelector('.cards');
@@ -56,6 +69,14 @@ function comp(obj) {
 	profile.appendChild(profAddr);
 
 	h3.textContent = obj.name;
+	img.src = obj.avatar_url;
+	userName.textContent = obj.login;
+	location.textContent = obj.location;
+	profAddr.setAttribute(`href`, obj.html_url);
+	profAddr.textContent = 'Check out my Github';
+	followers.textContent = `Followers: ${obj.followers}`;
+	following.textContent = `Following: ${obj.following}`;
+	bio.textContent = `Bio: ${obj.bio}`;
 }
 
 /* Step 3: Create a function that accepts a single object as its only argument,
